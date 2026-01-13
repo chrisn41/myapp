@@ -1,4 +1,4 @@
-name: CI/CD Deploy MyApp
+name: CI/CD Local Deploy
 
 on:
   push:
@@ -7,28 +7,14 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: 18
-
     - name: Install dependencies
       run: npm install
 
-    - name: Deploy to server
-      uses: appleboy/ssh-action@v1
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        script: |
-          cd /var/www/myapp
-          git pull origin main
-          npm install
-          sudo systemctl restart myapp
+    - name: Restart app
+      run: sudo systemctl restart myapp
