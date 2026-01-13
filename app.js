@@ -4,7 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-  res.send('CI/CD SUCCESS 🚀 Deploy otomatis jalan');
+res.send('Hello DevOps 🚀 App is running - CI TEST');
 });
 
 app.listen(PORT, () => {
